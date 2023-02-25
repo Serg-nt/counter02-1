@@ -1,9 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Grid from '@mui/material/Unstable_Grid2';
 import {Box, Button, InputLabel, TextField, Typography} from "@mui/material";
+import SuperButton from './SuperButton';
+import {
+    ChangeEvent
+} from "../../../../../Applications/IntelliJ IDEA.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/react";
 
 function App() {
+
+    const [value, setValue] = useState<number>(0)
+    const [minValue, setMinValue] = useState<any>()
+    const [maxValue, setMaxValue] = useState<any>()
+
+    const IncrementValue = () => {
+        setValue(value + 1)
+    }
+    const ResetValue = () => {
+        setValue(minValue)
+    }
+    const onChangeMinValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setMinValue(e.currentTarget.value)
+    }
+    const onChangeMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setMaxValue(e.currentTarget.value)
+    }
 
     const boxStyleElementBlock = {
         height: 270,
@@ -38,25 +59,37 @@ function App() {
                 <Grid xs={6}>
                     <Box sx={boxStyleElementBlock}>
                         <Box sx={{...boxStyleElementCounterAndInput, flexDirection: 'column'}}>
-                            <TextField sx={{mb: 2}} type="number" id="outlined-basic" label="Min value" variant="outlined" />
-                            <TextField type="number" id="outlined-basic" label="Max value" variant="outlined" />
+                            <TextField
+                                value={minValue}
+                                onChange={onChangeMinValueHandler}
+                                sx={{mb: 2}}
+                                type="number"
+                                label="Min value"
+                                variant="outlined"
+                            />
+                            <TextField
+                                value={maxValue}
+                                onChange={onChangeMaxValueHandler}
+                                type="number"
+                                label="Max value"
+                                variant="outlined"
+                            />
                         </Box>
                         <Box sx={buttonSetStyle}>
-                            <Button name='' onClick={() => {}} />
-                            <Button variant="contained">set</Button>
+                            <SuperButton name='set' onClick={() => {}} />
                         </Box>
                     </Box>
                 </Grid>
                 <Grid xs={6}>
                     <Box sx={boxStyleElementBlock}>
                         <Box sx={boxStyleElementCounterAndInput}>
-                            <Typography variant="h3">
-                                Counter
+                            <Typography variant="h1">
+                                {value}
                             </Typography>
                         </Box>
                         <Box sx={buttonIncResetStyle}>
-                            <Button variant="contained">inc</Button>
-                            <Button variant="contained">reset</Button>
+                            <SuperButton name='inc' onClick={IncrementValue} />
+                            <SuperButton name='reset' onClick={ResetValue} />
                         </Box>
                     </Box>
                 </Grid>
