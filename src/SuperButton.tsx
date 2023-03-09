@@ -4,11 +4,12 @@ import React from 'react';
 type ButtonPropsType = {
     name: string
     onClick: () => void
+    disabled?: boolean
 }
 
 const SuperButton = (props: ButtonPropsType) => {
     return (
-        <Button variant="contained" onClick={props.onClick}>{props.name}</Button>
+        <Button disabled={props.disabled} variant="contained" onClick={props.onClick}>{props.name}</Button>
     );
 };
 
